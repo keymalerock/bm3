@@ -1,14 +1,16 @@
 package com.bm3.accounting.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @Table(name = "users")
@@ -19,7 +21,7 @@ public class User {
     private Long idUser;
 
     @Column(name = "username", nullable = false, unique = true, length = 50)
-    private String name;
+    private String username;
 
     @Column(name = "email", nullable = false, unique = true, length = 60)
     private String email;
@@ -28,12 +30,12 @@ public class User {
     private String key;
 
     @Column(name = "is_enable")
-    private boolean isEnable;
+    private boolean isEnabled;
 
     @Column(name = "create_date", updatable = false)
     private LocalDateTime createDate;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
